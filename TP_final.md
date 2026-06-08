@@ -94,6 +94,8 @@ En conclusión, si bien Argentina cuenta con empresas que producen controladores
 
 En las siguientes tablas se presentan las listas de requisitos. Primero (Tabla 1), la lista definida inicialmente.
 
+<div align="center">
+
 | Grupo | ID | Descripción |
 | :--- | :---: | :--- |
 | **Sensores ambientales** | 1.1 | El sistema contará con un sensor de temperatura y humedad ambiente (DHT22) para supervisar condiciones del cultivo. |
@@ -113,6 +115,8 @@ En las siguientes tablas se presentan las listas de requisitos. Primero (Tabla 1
 | | 4.2 | La app permitirá configurar umbrales, iniciar riegos manuales, programar fotoperíodos y controlar el ventilador. |
 | | 4.3 | El sistema enviará a la app lecturas periódicas y eventos críticos (ej. falta de agua, sensor desconectado, fallo de ventilador). |
 | **Operación segura** | 5.1 | Si ocurre un evento inesperado que suponga un riesgo al sistema, el mismo deberá reiniciar con los actuadores en estado pasivo. |
+
+</div>
 <p align="center"><em>Tabla 1: Requisitos iniciales del proyecto.</em></p>
 
 
@@ -121,27 +125,40 @@ En las siguientes tablas se presentan las listas de requisitos. Primero (Tabla 1
 En las tablas siguientes (2, 3 y 4) se presentan 3 casos de uso para el sistema.
 
 #### Caso de uso 1: Riego automático
+
+<div align="center">
+
 | Elemento | Definición |
 | :--- | :--- |
 | **Disparador** | El sistema detecta que la humedad del suelo cae por debajo del umbral configurado. |
 | **Precondiciones** | El sistema está encendido. La bomba está conectada y con agua disponible. La humedad objetivo está configurada en la app y almacenada en EEPROM. El sensor de humedad de suelo está funcionando. |
 | **Flujo principal** | El sistema realiza una lectura semi-continua del sensor de humedad de suelo. Si la lectura está por debajo del umbral, enciende la bomba mediante Módulo Relay e inicia el riego automático. |
 | **Flujos alternativos** | a. El tanque no tiene agua: el sensor de nivel indica vacío y el riego no se ejecuta. |
+
+</div>
 <p align="center"><em>Tabla 2: Caso de uso 1.</em></p>
 
 
 #### Caso de uso 2: Control de iluminación
+
+<div align="center">
+
 | Elemento | Definición |
 | :--- | :--- |
 | **Disparador** | La app envía una configuración de color, intensidad o fotoperíodo para la tira LED. |
 | **Precondiciones** | El sistema está encendido. La tira LED está conectada mediante PWM. La app está enlazada por BLE. Los parámetros previos están almacenados en EEPROM. |
 | **Flujo principal** | El usuario selecciona en la app el modo de iluminación deseado (manual o fotoperíodo). La app envía los parámetros de color e intensidad al microcontrolador. El firmware actualiza las señales PWM. La iluminación cambia inmediatamente. |
 | **Flujos alternativos** | a. Se pierde la conexión BLE: el sistema mantiene la configuración previa y notifica error. <br> b. La app envía valores fuera de rango: el firmware descarta el comando. |
+
+</div>
 <p align="center"><em>Tabla 3: Caso de uso 2.</em></p>
 
 
 
 #### Caso de uso 3: Control del ventilador según temperatura
+
+<div align="center">
+
 | Elemento | Definición |
 | :--- | :--- |
 | **Disparador** | La temperatura ambiente medida por el AHT10 supera el umbral configurado. |
@@ -149,6 +166,7 @@ En las tablas siguientes (2, 3 y 4) se presentan 3 casos de uso para el sistema.
 | **Flujo principal** | El sistema realiza una lectura de temperatura. Si supera el umbral definido, el firmware activa el ventilador y ajusta su velocidad mediante PWM según la temperatura. |
 | **Flujos alternativos** | a. La temperatura vuelve a valores normales: el ventilador vuelve a un estado de reposo. |
 
+</div>
 <p align="center"><em>Tabla 4: Caso de uso 3.</em></p>
 
 ### 2.3. Descripcion de módulos externos.
@@ -156,60 +174,60 @@ En las tablas siguientes (2, 3 y 4) se presentan 3 casos de uso para el sistema.
 Para la realización de este trabajo se seleccionaron una serie de módulos ya diseñados y probados, los cuales se detallan a continuación.
 
 #### 2.3.1. Microcontrolador STM32 F103RB.
-Este Microcontrolador está equipado con una CPU ARM Cortex-M3, que funciona hasta una frecuencia de 72 MHz. En este trabajo, mediante este componente se ejecutó y controló el flujo de tareas a realizar.
+Este Microcontrolador está equipado con una CPU ARM Cortex-M3, que funciona hasta una frecuencia de 72 MHz. En este trabajo, mediante este componente (que se observa en la Figura 1), se ejecutó y controló el flujo de tareas a realizar.
 
 <div align="center">
-  <img src="img_dispositivos/placa_nucleo_f103rb.jpg" width="50%" />
+  <img src="img_dispositivos/placa_nucleo_f103rb.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 1: Placa nucleo F103Rb.</i>
 </div>
 
 #### 2.3.2. Módulo integrado de Bluetooth de baja energía (BLE).
-Se utilizó el Módulo embebido que transmite y recibe información por Bluetooth. Dicho componente se comunicó con el microcontrolador a través de una interfaz UART.
+Se utilizó el Módulo embebido que transmite y recibe información por Bluetooth, este se observa en la Figur 2. Dicho componente se comunicó con el microcontrolador a través de una interfaz UART.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_BLE.jpg" width="50%" />
+  <img src="img_dispositivos/modulo_BLE.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 2: Modulo de BLE.</i>
 </div>
 
 #### 2.3.3. Módulo Relay optoacoplado de 2 canales.
-El módulo de Relay de 2 Canales de lógica invertida se utilizó para controlar la corriente de las bombas, actuando como un interruptor que responde a una señal enviada a través de los pines GPIO.
+El módulo de Relay de 2 Canales de lógica invertida (ver Figura 3) se utilizó para controlar la corriente de las bombas, actuando como un interruptor que responde a una señal enviada a través de los pines GPIO.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_rele.jpg" width="50%" />
+  <img src="img_dispositivos/modulo_rele.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 3: Modulo relay..</i>
+  <i>Figura 3: Modulo relay.</i>
 </div>
 
 #### 2.3.4. Módulo de memoria no volátil EEPROM (AT24C256).
-Se utilizó una Memoria EEPROM de 256 Kbits, organizada en 32,768 palabras de 8 bits cada una, que se utiliza para almacenar datos de manera no volátil, es decir, que no se borran al apagar el dispositivo, y funciona a través de la interfaz de comunicación I2C.
+Se utilizó una Memoria EEPROM de 256 Kbits (la cual se muestra en la Figura 4), organizada en 32,768 palabras de 8 bits cada una, que se utiliza para almacenar datos de manera no volátil, es decir, que no se borran al apagar el dispositivo, y funciona a través de la interfaz de comunicación I2C.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_eprom.jpg" width="50%" />
+  <img src="img_dispositivos/modulo_eprom.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 4: Modulo EEPROM.</i>
 </div>
 
 #### 2.3.5. Aplicación móvil para Android (MIT APP Inventor).
-En este trabajo, se utilizó esta herramienta de desarrollo de APP móvil para la comunicación sencilla por BLE.
+En este trabajo, se utilizó esta herramienta de desarrollo de APP móvil para la comunicación sencilla por BLE, cuya interfaz de usuario se detalla en la Figura 5.
 
 <div align="center">
-  <img src="img_dispositivos/int_app.png" width="50%" />
+  <img src="img_dispositivos/int_app.png" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 5: Interfaz de usuario de la app movil.</i>
 </div>
 
 #### 2.3.6. Módulo de sensor analógico de nivel de agua en tanque (HW-038).
-Este sensor mide el nivel de agua en un tanque de forma resistiva y se utilizó para enviar una señal analógica a partir de eso, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
+Este sensor utilizado (ver Figura 6) mide el nivel de agua en un tanque de forma resistiva y se utilizó para enviar una señal analógica a partir de eso, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_HW-038.jpg" width="50%" />
+  <img src="img_dispositivos/modulo_HW-038.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 6: Modulo HW-038.</i>
@@ -217,10 +235,10 @@ Este sensor mide el nivel de agua en un tanque de forma resistiva y se utilizó 
 
 #### 2.3.7. Módulo de sensor analógico de nivel de humedad en tierra (HW-390).
 
-Este sensor mide el nivel de humedad en una maceta de forma capacitiva y, en este trabajo, se utilizó para enviar una señal analógica representativa de la permitividad eléctrica del suelo, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
+Este sensor (ver Figura 7) mide el nivel de humedad en una maceta de forma capacitiva y, en este trabajo, se utilizó para enviar una señal analógica representativa de la permitividad eléctrica del suelo, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_HW-390.png" width="50%" />
+  <img src="img_dispositivos/modulo_HW-390.png" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 7: Modulo HW-390.</i>
@@ -228,24 +246,24 @@ Este sensor mide el nivel de humedad en una maceta de forma capacitiva y, en est
 
 #### 2.3.8. Módulo de sensor digital de temperatura y humedad en ambiente (AHT10).
 
-Este sensor mide temperaturas desde -40°C a 80°C y porcentaje de humedad ambiente. En este trabajo, se utilizó para transmitir dicha información de forma digital mediante el protocolo I2C, con el fin de controlar el entorno cerrado del sistema.
+Este sensor mide temperaturas desde -40°C a 80°C y porcentaje de humedad ambiente, este puede observarse en la Figura 8. En este trabajo, se utilizó para transmitir dicha información de forma digital mediante el protocolo I2C, con el fin de controlar el entorno cerrado del sistema.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_ht10.jpg" width="50%" />
+  <img src="img_dispositivos/modulo_ht10.jpg" width="30%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 8: Modulo AHT10.</i>
 </div>
 
-#### 2.3.9. Módulo de alimentación de corriente continua de 12V.
+#### 2.3.9. Módulo de alimentación de corriente continua de 12 V.
 
-Para la alimentación del sistema, se utilizó una fuente de corriente continua regulada de 12V y 10A alimentada por corriente de red.
+Para la alimentación del sistema, se utilizó una fuente de corriente continua regulada de 12 V y 10 A alimentada por corriente de red, la fuente utilizada se ilustra en la Figura 9.
 
 <div align="center">
-  <img src="img_dispositivos/modulo_fuente_cc.png" width="40%" />
+  <img src="img_dispositivos/modulo_fuente_cc.png" width="15%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 9: Modulo fuente 12V.</i>
+  <i>Figura 9: Modulo fuente 12 V.</i>
 </div>
 
 # 3. Diseño e implementación.
@@ -267,8 +285,10 @@ En la Figura 9 se muestra el diagrama en bloques del sistema con los principales
 ## 3.2. Diseño de circuitos e implementación
 
 ### 3.2.1. Diseño de circuitos y módulos
-Dado el esquema general del trabajo, se presenta la asignación de pines para la conexión de todos los módulos en la tabla 5.
+Dado el esquema general del trabajo, se presenta la asignación de pines para la conexión de todos los módulos en la Tabla 5.
 
+<div align="center">
+ 
 | PIN | USO |
 | :--- | :--- |
 | PA0 | Humedad de suelo |
@@ -285,6 +305,8 @@ Dado el esquema general del trabajo, se presenta la asignación de pines para la
 | PC1 | Fertilización |
 | PC10 | BLE RX |
 | PC11 | BLE TX |
+
+</div>
 <p align="center"><em>Tabla 5: PINOUT del sistema.</em></p>
 
 Además de los módulos externos descriptos en la sección de descripción de módulos externos, se diseñaron dos módulos para poder implementar correctamente el sistema de iluminación dinámica y el sistema de riego.
@@ -297,9 +319,9 @@ El diseño se basó en el uso de transistores NMOS de nivel lógico. Sobre este 
 
 A partir de este funcionamiento, se toman ciertas precauciones en el diseño para garantizar una polarización correcta y un nivel de seguridad mínima de los dispositivos involucrados. Por ello, se agregó una resistencia de 220 Ω entre el PIN de salida PWM y el Gate y una resistencia de 10 kΩ entre el Gate y Común.
 
-El esquemático del diseño se puede ver en la figura:
+El esquemático del diseño se puede ver en la Figura 10.
 <div align="center">
-  <img src="IMagenes/LEDS.png" width="80%" />
+  <img src="IMagenes/LEDS.png" width="60%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 10: Esquemático módulo de iluminación dinámica.</i>
@@ -309,10 +331,10 @@ El esquemático del diseño se puede ver en la figura:
 
 Las bombas de riego adquiridas son escencialmente motores de corriente continua que funcionan con 12 V. Por ello, suelen funcionar con niveles de corriente relativamente altos (hasta 1.5A) que, una vez apagan las bombas, pueden quedar residuos que las pueden dañar severamente. Para evitar eso, se añadió un diodo 1N4007 invertido y paralelo a cada bomba. De esta forma, las características intrínsecas del diodo hace que permita usarlo como un realimentador que estabiliza el drenaje de esa corriente residual.
 
-El esquemático del diseño se puede ver en la figura:
+El esquemático del diseño se puede ver en la Figura 11.
 
 <div align="center">
-  <img src="IMagenes/BOMBA.png" width="80%" />
+  <img src="IMagenes/BOMBA.png" width="40%" />
   <br>
   <a name="fig:esquema"></a>
   <i>Figura 11: Esquemático módulo de riego.</i>
@@ -320,80 +342,58 @@ El esquemático del diseño se puede ver en la figura:
 
 ### 3.2.2. Implementación.
 
-El diseño del sistema se pensó en base a distintos módulos, segmentando las funciones en diferentes unidades independientes para optimizar la robustez y la seguridad de la misma. Esta decisión se tomo en base a la necesidad de aislar el circuito de control principal. Dado que los sensores de humedad de suelo y nivel de agua operan en proximidad constante con líquidos, se optó por un módulo independiente que protege la placa principal ante posibles filtraciones y ambientes de alta humedad, facilitando además una ubicación más estratégica de los sensores dentro del invernadero.
+El diseño del sistema se pensó en base a distintos módulos, segmentando las funciones en diferentes unidades independientes para optimizar la robustez y la seguridad de la misma. Esta decisión se tomo en base a la necesidad de aislar el circuito de control principal. Dado que los sensores de humedad de suelo y nivel de agua operan en proximidad constante con líquidos, se optó por un módulo independiente que protege la placa principal ante posibles filtraciones y ambientes de alta humedad, facilitando además una ubicación más estratégica de los sensores dentro del invernadero, esto se observa en la Figura 12.
 
-Siguiendo esta lógica por funcionalidad y seguridad, se implementó un módulo específico para la iluminación LED. Debido a la corriente requerida por estos componentes y la necesidad de un circuitos dedicado, esta modularización permitió simplificando el diseño general y mejorando la integridad de las señales. De manera similar, se desarrolló un tercer bloque destinado a los actuadores de mayor consumo ya que estos deben ser alimentados con un fuente de 12 V, como las bombas de riego y el cooler. Al situar las bombas en un módulo cerca de los líquidos, se mejora la distribución y el impacto del los ruidos propios de los motores sobre el microcontrolador.
-
-Finalmente, la placa general de hardware se centraliza en una placa base de distribución que funciona como el nodo del sistema. Sobre esta se monta la placa Nucleo (STM32F103RB), encargándose de la gestión de energía (5 V y 3,3 V) necesaria para los modulos y sensores, ademas de distribuir la tension de la fuente independiente necesaria de 12 V. Asimismo, esta placa actúa como un bus de las señales de control de los pines GPIO, PWM e I2C hacia los distintos módulos implementados, garantizando una distribución de la información y la energía de forma robusta, organizada y eficiente.
-
-La implementación física del hardware, diseñada para garantizar robustez y seguridad, se detalla en las siguientes figuras. En las Figuras 12 y 13 se presenta la placa base central; por su parte, la Figuras 14 y 15. Finalmente, las Figuras 16 y 17 exponen dichos bloques, respectivamente. En estas capturas se aprecia la disposición de los componentes y el ruteado de pistas.
-
-**Módulo general de la placa de hardware diseñada:**
 <div align="center">
-  <img src="IMagenes/placa%20general%20frente.jpeg" width="80%" />
+  <img src="IMagenes/frente%20sensores%20analog.jpeg" width="42%" />
+  <img src="IMagenes/sensores%20trasera.jpeg" width="38%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 12: Vista frontal placa general.</i>
+  <i>Figura 12: Placa de sensores. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
+</div>
+
+Siguiendo esta lógica por funcionalidad y seguridad, se implementó un módulo específico para la iluminación LED ver Figura 13. Debido a la corriente requerida por estos componentes y la necesidad de un circuitos dedicado, esta modularización permitió simplificando el diseño general y mejorando la integridad de las señales. De manera similar, se desarrolló un tercer bloque destinado a los actuadores de mayor consumo ya que estos deben ser alimentados con un fuente de 12 V, como las bombas de riego y el cooler, como se observa en la Figura 14. Al situar las bombas en un módulo cerca de los líquidos, se mejora la distribución y el impacto del los ruidos propios de los motores sobre el microcontrolador.
+
+<div align="center">
+  <img src="IMagenes/leds%20frente.jpeg" width="42%" />
+  <img src="IMagenes/trasera%20leds.jpeg" width="39%" />
+  <br>
+  <a name="fig:esquema"></a>
+  <i>Figura 13: Placa de LEDs. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
 <div align="center">
-  <img src="IMagenes/placa%20general%20trasera.jpeg" width="80%" />
+  <img src="IMagenes/bomba%20cooler%20frente.jpeg" width="42%" />
+  <img src="IMagenes/bomba%20cooler%20trasero.jpeg" width="38.25%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 13: Vista posterior placa general.</i>
+  <i>Figura 14: Placa de bomba y cooler. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
-**Módulo de control de bomba y cooler:**
+Finalmente, la placa general de hardware se centraliza en una placa base de distribución que funciona como el nodo del sistema, esta se observa en las Figura 15. Sobre esta se monta la placa Nucleo (STM32F103RB), encargándose de la gestión de energía (5 V y 3,3 V) necesaria para los modulos y sensores, ademas de distribuir la tension de la fuente independiente necesaria de 12 V. Asimismo, esta placa actúa como un bus de las señales de control de los pines GPIO, PWM e I2C hacia los distintos módulos implementados, garantizando una distribución de la información y la energía de forma robusta, organizada y eficiente.
 
 <div align="center">
-  <img src="IMagenes/bomba%20cooler%20frente.jpeg" width="80%" />
+  <img src="IMagenes/placa%20general%20frente.jpeg" width="39.5%" />
+  <img src="IMagenes/placa%20general%20trasera.jpeg" width="42%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 14: Vista frontal bomba/cooler.</i>
-</div>
-<div align="center">
-  <img src="IMagenes/bomba%20cooler%20trasero.jpeg" width="80%" />
-  <br>
-  <a name="fig:esquema"></a>
-  <i>Figura 15: Vista posterior bomba/cooler.</i>
+  <i>Figura 15: Placa general. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
-
-**Módulo de control de sensores:**
-
-<div align="center">
-  <img src="IMagenes/frente%20sensores%20analog.jpeg" width="80%" />
-  <br>
-  <a name="fig:esquema"></a>
-  <i>Figura 16: Vista frontal sensores.</i>
-</div>
-
-<div align="center">
-  <img src="IMagenes/sensores%20trasera.jpeg" width="80%" />
-  <br>
-  <a name="fig:esquema"></a>
-  <i>Figura 17: Vista posterior sensores.</i>
-</div>
-
-**Módulo de control de leds:**
-<div align="center">
-  <img src="IMagenes/leds%20frente.jpeg" width="80%" />
-  <br>
-  <a name="fig:esquema"></a>
-  <i>Figura 18: Vista frontal leds.</i>
-</div>
-
-<div align="center">
-  <img src="IMagenes/trasera%20leds.jpeg" width="80%" />
-  <br>
-  <a name="fig:esquema"></a>
-  <i>Figura 19: Vista posterior leds.</i>
-</div>
 
 ## 3.3. Funcionamiento de software.
 
-El sistema consta de un programa principal denominado $app.c$. Este se encarga de ejecutar las tareas una por una en menos de 1ms.
+El sistema consta de un programa principal denominado app.c. Este se encarga de ejecutar las tareas una por una en menos de 1ms, cuyo diagrama de funcionamiento se ilustra en la Figura 16.
 A continuación se describen detalladamente las tareas que se desarrollaron para la implementación de este trabajo. Las mismas siguen un esquema *bare-metal* con *super-loop* y un *tick* de sistema de 1 ms.
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/ecamueira/tdse-tf_2-3/entrega-final/IMagenes/diagrama_tareas.jpeg" width="90%" />
+  <br>
+  <a name="fig:diagrama_tareas"></a>
+  <i>Figura 16: Diagrama de tareas.</i>
+</div>
+
+
 
 ### 3.3.1. Task Sensor Analog.
 
@@ -483,6 +483,9 @@ En esta sección se presentan las mediciones hechas sobre las pruebas de hardwar
 Se realizaron distintas mediciones y pruebas sobre el funcionamiento tanto de hardware (tabla 6) como de software (tabla 7), los cuales se detalla el ensayos utilizo ademas de los resultados obtenidos del mismo.
 
 ### Registro de ensayos y pruebas de funcionamiento del sistema.
+
+<div align="center">
+
 | Ensayo | Resultado | Estado |
 | :--- | :--- | :---: |
 | Prueba de sensores analógicos | Se logró la medición correcta de los mismos. | 🟢 |
@@ -493,10 +496,15 @@ Se realizaron distintas mediciones y pruebas sobre el funcionamiento tanto de ha
 | Prueba de bombas, relés y circuito implementado | Se obtuvo un funcionamiento correcto. | 🟢 |
 | Implementación y verificación de placas (continuidad y comunicación) | Tras realizar modificaciones en el diseño de las placas, se alcanzó un resultado funcional correcto. | 🟢 |
 | Comunicación entre placas para la fuente independiente de 12V | Se logró una correcta distribución de la línea de 12V hacia los diferentes módulos. | 🟢 |
+
+</div>
 <p align="center"><em>Tabla 6: Registro de ensayos y pruebas de funcionamiento del sistema.</em></p>
 
 
 ### Registro de ensayos y pruebas de funcionamiento software.
+
+<div align="center">
+
 | Ensayo | Resultado | Estado |
 | :--- | :--- | :---: |
 | Verificación del funcionamiento de la memoria EEPROM | Se logró realizar la lectura y escritura de los datos de manera exitosa. | 🟢 |
@@ -507,6 +515,8 @@ Se realizaron distintas mediciones y pruebas sobre el funcionamiento tanto de ha
 | Lectura de temperatura y humedad mediante I2C con el sensor AHT10, implementando interrupciones y verificación de estados de error ante cambios bruscos | Se obtuvo un funcionamiento correcto de la lectura y de las interrupciones, validando la respuesta del sistema ante condiciones críticas y errores. | 🟢 |
 | Prueba de señales PWM para los relés y verificación de cambios de estado para el correcto funcionamiento | Se obtuvo el funcionamiento correcto de los mismos mediante la implementación del PWM. | 🟢 |
 | Implementación de la comunicación inalámbrica mediante el módulo BLE vía UART | Se logró la recepción del ble y el envío de datos mediante UART. |🟢 |
+
+</div>
 <p align="center"><em>Tabla 7: Registro de ensayos y pruebas de funcionamiento de software.</em></p>
 
 
@@ -516,13 +526,15 @@ En el aspecto del software, se verificó que las tareas se comunican entre sí s
 
 ## 4.2. Prueba de integracion
 
-Acontinuacion se adjunta el link del sistemas en funcionamiento: 
+Acontinuacion se adjunta el link del sistemas en funcionamiento. 
 
 https://drive.google.com/file/d/1bl58Yt1DkdqtW3qHbJ-Gf5lO0u4VhL3R/view?usp=sharing
 
 ## 4.3. Medición y análisis de tiempos de ejecución de cada tarea (WCET)
 
 Se realizaron distintas mediciones con el objetivo de analizar los peores tiempos de ejecución de cada tarea para, a posteriori, detallar el uso de la CPU durante la ejecución funcional del sistema. Los datos obtenidos se vuelcan en la Tabla 8. En dicha tabla se detalla en cada columna: la tarea; el *WCET Base*, que representa la ejecución de la tarea sin procesamiento de datos externos (estado de reposo); y el *WCET Activo*, que contempla la ejecución completa incluyendo la gestión de periféricos, como las bombas de agua, y el envío de datos desde la aplicación mediante el módulo BLE.
+
+<div align="center">
 
 | Tarea | WCET Base | WCET Activo |
 | :--- | :---: | :---: |
@@ -537,7 +549,9 @@ Se realizaron distintas mediciones con el objetivo de analizar los peores tiempo
 | Task Actuator Bomba Agua | 4 μs | 7 μs |
 | Task Actuator Cooler | 31 μs | 32 μs |
 | Task Actuator LED | 63 μs | 63 μs |
-| **Total** | **210 μs** | **230 μs** |
+| Total | 210 μs | 230 μs |
+
+</div>
 <p align="center"><em>Tabla 8: Comparativa de tiempos de ejecución (WCET).</em></p>
 
 Los resultados reflejan una alta eficiencia, con un tiempo total de apenas 230 $\mu$s en el peor de los casos. Esta velocidad asegura que el sistema procesa la información de manera casi instantánea, dejando al microcontrolador libre la mayor parte del tiempo. La pequeña diferencia entre el estado base y el activo confirma que el envío de datos y el control de periféricos no sobrecargan al procesador, permitiendo un funcionamiento fluido.
@@ -565,32 +579,36 @@ Para realizar un análisis integral, se midió la corriente en dos puntos críti
 
 Como se detalla en la Tabla 9, la implementación del Sleep Mode permite una disminución significativa de la corriente consumida una vez finalizada las tareas de procesamiento.
 
+<div align="center">
+
 | Punto de Medición | Modo Run (Mínimo) | Modo Run (Máximo) | Modo Sleep |
 | :--- | :---: | :---: | :---: |
 | 3V3 (Jumper JP6) | 42 mA | --- | 28 mA |
-| 5V (Jumper JP5) | 88 mA | 208 mA | 46 mA |
+| 5 V (Jumper JP5) | 88 mA | 208 mA | 46 mA |
+
+</div>
 <p align="center"><em>Tabla 9: Comparativa de consumo energético.</em></p>
 
-Los resultados demuestran que el *Modo Sleep* reduce el consumo del microcontrolador en un 33\% respecto a su estado de ejecución mínima. Es notable que el consumo total del sistema en 5V disminuye de $88 \ \text{mA}$ a $46 \ \text{mA}$, lo que indica que la detención del núcleo no solo ahorra energía en el procesador, sino que también reduce la actividad residual de los buses de comunicación y la carga sobre los reguladores de la placa. 
+Los resultados demuestran que el *Modo Sleep* reduce el consumo del microcontrolador en un 33\% respecto a su estado de ejecución mínima. Es notable que el consumo total del sistema en 5 V disminuye de $88 \ \text{mA}$ a $46 \ \text{mA}$, lo que indica que la detención del núcleo no solo ahorra energía en el procesador, sino que también reduce la actividad residual de los buses de comunicación y la carga sobre los reguladores de la placa. 
 
 El pico de $208 \ \text{mA}$ observado en el modo máximo se debe a la actuación simultánea de todos los periféricos. Si bien representa una corriente elevada, este estado es transitorio y no se mantiene durante periodos prolongados. Dicho incremento es causado eventualmente por la conmutación de los relés, los cuales generan un pico de consumo en el instante de activación, estabilizándose en un lapso muy breve una vez completada la acción de los mismos.
 
 ## 4.6. Reporte de uso
 
-Se analizó la eficiencia del programa tras la compilación. En las figuras 20 y 21 se presentan la salida de la consola y el build analyzer, respectivamente.
+Se analizó la eficiencia del programa tras la compilación. En las Figuras 17 y 18 se presentan la salida de la consola y el build analyzer, respectivamente.
 
 <div align="center">
   <img src="IMagenes/consola.png" width="80%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 20: Resumen de compilación.</i>
+  <i>Figura 17: Resumen de compilación.</i>
 </div>
 
 <div align="center">
   <img src="IMagenes/buildan.png" width="80%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 21: Ocupación de memoria Flash y RAM..</i>
+  <i>Figura 18: Ocupación de memoria Flash y RAM..</i>
 </div>
 
 
@@ -599,6 +617,8 @@ Según los reportes, el código utiliza el 43,15% de la memoria Flash (55,23 KB)
 ## 4.7. Cumplimiento de requisitos.
 
 A lo largo del desarrollo, varios requisitos fueron cambiando de forma. Estos cambios se pueden ver en la siguiente tabla 10.
+
+<div align="center">
 
 | Grupo | ID | Descripción |
 | :--- | :---: | :--- |
@@ -617,6 +637,8 @@ A lo largo del desarrollo, varios requisitos fueron cambiando de forma. Estos ca
 | **Interfaz/App** | 4.1 | Toda la interacción de usuario, es decir, la configuración se realiza mediante la aplicación móvil conectada por BLE. |
 | | 4.2 | La app permitirá configurar umbrales y programar fotoperíodos. |
 | **Operación segura** | 5.1 | Si ocurre un evento inesperado que suponga un riesgo al sistema, el mismo deberá reiniciar con los actuadores en estado pasivo. |
+
+</div>
 <p align="center"><em>Tabla 10: Cumplimiento de requisitos.</em></p>
 
 En algunos casos, esos cambios se debieron a la dificultad de adaptar el hardware a los requisitos de software impuestos (1.1, 3.1). En otros casos, se evaluó que la implementación del requisito sería compleja y retrasaría todo el desarrollo (4, 2.6).
