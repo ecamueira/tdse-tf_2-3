@@ -92,7 +92,7 @@ En conclusión, si bien Argentina cuenta con empresas que producen controladores
 
 ### 2.1. Requisitos.
 
-En las siguientes tablas se presentan las listas de requisitos. Primero (Tabla 1), la lista definida inicialmente.
+En las siguientes tablas se presentan las listas de requisitos. Primero en la Tabla 1, la lista definida inicialmente.
 
 <div align="center">
 
@@ -122,7 +122,7 @@ En las siguientes tablas se presentan las listas de requisitos. Primero (Tabla 1
 
 ### 2.2. Casos de uso.
 
-En las tablas siguientes (2, 3 y 4) se presentan 3 casos de uso para el sistema.
+En las tablas 2, 3 y 4 se presentan 3 casos de uso para el sistema.
 
 #### Caso de uso 1: Riego automático
 
@@ -174,7 +174,7 @@ En las tablas siguientes (2, 3 y 4) se presentan 3 casos de uso para el sistema.
 Para la realización de este trabajo se seleccionaron una serie de módulos ya diseñados y probados, los cuales se detallan a continuación.
 
 #### 2.3.1. Microcontrolador STM32 F103RB.
-Este Microcontrolador está equipado con una CPU ARM Cortex-M3, que funciona hasta una frecuencia de 72 MHz. En este trabajo, mediante este componente (que se observa en la Figura 1), se ejecutó y controló el flujo de tareas a realizar.
+Este Microcontrolador está equipado con una CPU ARM Cortex-M3, que funciona hasta una frecuencia de 72 MHz. En este trabajo, mediante este componente, que se observa en la Figura 1, se ejecutó y controló el flujo de tareas a realizar.
 
 <div align="center">
   <img src="img_dispositivos/placa_nucleo_f103rb.jpg" width="30%" />
@@ -184,7 +184,7 @@ Este Microcontrolador está equipado con una CPU ARM Cortex-M3, que funciona has
 </div>
 
 #### 2.3.2. Módulo integrado de Bluetooth de baja energía (BLE).
-Se utilizó el Módulo embebido que transmite y recibe información por Bluetooth, este se observa en la Figur 2. Dicho componente se comunicó con el microcontrolador a través de una interfaz UART.
+Se utilizó el Módulo embebido que transmite y recibe información por Bluetooth, este se observa en la Figura 2. Dicho componente se comunicó con el microcontrolador a través de una interfaz UART.
 
 <div align="center">
   <img src="img_dispositivos/modulo_BLE.jpg" width="30%" />
@@ -194,7 +194,7 @@ Se utilizó el Módulo embebido que transmite y recibe información por Bluetoot
 </div>
 
 #### 2.3.3. Módulo Relay optoacoplado de 2 canales.
-El módulo de Relay de 2 Canales de lógica invertida (ver Figura 3) se utilizó para controlar la corriente de las bombas, actuando como un interruptor que responde a una señal enviada a través de los pines GPIO.
+El módulo de Relay de 2 Canales de lógica invertida, que se observa en la Figura 3, se utilizó para controlar la corriente de las bombas, actuando como un interruptor que responde a una señal enviada a través de los pines GPIO.
 
 <div align="center">
   <img src="img_dispositivos/modulo_rele.jpg" width="30%" />
@@ -204,7 +204,7 @@ El módulo de Relay de 2 Canales de lógica invertida (ver Figura 3) se utilizó
 </div>
 
 #### 2.3.4. Módulo de memoria no volátil EEPROM (AT24C256).
-Se utilizó una Memoria EEPROM de 256 Kbits (la cual se muestra en la Figura 4), organizada en 32,768 palabras de 8 bits cada una, que se utiliza para almacenar datos de manera no volátil, es decir, que no se borran al apagar el dispositivo, y funciona a través de la interfaz de comunicación I2C.
+Se utilizó una Memoria EEPROM de 256 Kbits, la cual se muestra en la Figura 4, organizada en 32,768 palabras de 8 bits cada una, que se utiliza para almacenar datos de manera no volátil, es decir, que no se borran al apagar el dispositivo, y funciona a través de la interfaz de comunicación I2C.
 
 <div align="center">
   <img src="img_dispositivos/modulo_eprom.jpg" width="30%" />
@@ -214,7 +214,8 @@ Se utilizó una Memoria EEPROM de 256 Kbits (la cual se muestra en la Figura 4),
 </div>
 
 #### 2.3.5. Aplicación móvil para Android (MIT APP Inventor).
-En este trabajo, se utilizó esta herramienta de desarrollo de APP móvil para la comunicación sencilla por BLE, cuya interfaz de usuario se detalla en la Figura 5.
+En este trabajo, se utilizó esta herramienta de desarrollo de APP móvil para la comunicación sencilla por BLE, cuya interfaz de usuario se detalla en la Figura 5. En la misma se puede observar que hay un botón para establecer la comunicación por BLE, un botón para seleccionar el color de las luces, cuatro sliders para seleccionar intensidad de luz,  humedad de tierra, humedad ambiente,  temperatura, cada uno con sus respectivas unidades, y un botón de envío al final.
+
 
 <div align="center">
   <img src="img_dispositivos/int_app.png" width="30%" />
@@ -223,8 +224,9 @@ En este trabajo, se utilizó esta herramienta de desarrollo de APP móvil para l
   <i>Figura 5: Interfaz de usuario de la app movil.</i>
 </div>
 
+
 #### 2.3.6. Módulo de sensor analógico de nivel de agua en tanque (HW-038).
-Este sensor utilizado (ver Figura 6) mide el nivel de agua en un tanque de forma resistiva y se utilizó para enviar una señal analógica a partir de eso, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
+Este sensor utilizado, ver Figura 6, mide el nivel de agua en un tanque de forma resistiva y se utilizó para enviar una señal analógica a partir de eso, la cual se procesó mediante el conversor analógico-digital (ADC) del microcontrolador.
 
 <div align="center">
   <img src="img_dispositivos/modulo_HW-038.jpg" width="30%" />
@@ -273,14 +275,15 @@ En esta sección se presenta el desarrollo para poder elaborar el trabajo. Se pr
 ## 3.1. Esquema general.
 
 ### 3.1.1. Diagrama en bloques
-En la Figura 9 se muestra el diagrama en bloques del sistema con los principales módulos del proyecto y las funciones del microcontrolador que las relaciona entre sí.
+En la Figura 10 se muestra el diagrama en bloques del sistema con los principales módulos del proyecto y las funciones del microcontrolador que las relaciona entre sí. Como se observa, el flujo comienza con la interfaz de la APP móvil, la cual establece un enlace inalámbrico con el módulo BLE. Este último se comunica de forma bidireccional con el microcontrolador mediante el bus UART para la recepción de comandos y envío de telemetría. Luego, se implementó el bus I²C para la adquisición de datos ambientales con el sensor de temperatura y humedad AHT10 y para cargar y descargar información de una memoria EEPROM, garantizando una lectura eficiente y código no bloqueante. Por otro lado, a través de los pines GPIO conigfurados como entradas analógicas (ADC), se realizo el monitoreo de los niveles de agua mediante los sensores de suelo HW-390 y de tanque HW-038. Otros puertos GPIO, configurados como salidas, se utilizaron para controlar digitalmente un Módulo Relay, encargado de activar las cargas de potencia de la Bomba de Riego y la Bomba de Fertilización. Finalmente, se utilizaron salidas con modulación por ancho de pulsos (PWM) para regular dinámicamente la intensidad del Cooler y de la Tira LED RGB, circuitos que, junto al módulo de relés, son energizados por una Fuente externa de 12 V.
 
 <div align="center">
   <img src="IMagenes/EsquemaTDSE.png" width="80%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 9: Esquema del diseño.</i>
+  <i>Figura 10: Esquema del diseño.</i>
 </div>
+
 
 ## 3.2. Diseño de circuitos e implementación
 
@@ -319,47 +322,47 @@ El diseño se basó en el uso de transistores NMOS de nivel lógico. Sobre este 
 
 A partir de este funcionamiento, se toman ciertas precauciones en el diseño para garantizar una polarización correcta y un nivel de seguridad mínima de los dispositivos involucrados. Por ello, se agregó una resistencia de 220 Ω entre el PIN de salida PWM y el Gate y una resistencia de 10 kΩ entre el Gate y Común.
 
-El esquemático del diseño se puede ver en la Figura 10.
+El esquemático del diseño se puede ver en la Figura 11.
 <div align="center">
   <img src="IMagenes/LEDS.png" width="60%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 10: Esquemático módulo de iluminación dinámica.</i>
+  <i>Figura 11: Esquemático módulo de iluminación dinámica.</i>
 </div>
 
 #### 3.2.1.2. Diseño de módulo de Riego.
 
 Las bombas de riego adquiridas son escencialmente motores de corriente continua que funcionan con 12 V. Por ello, suelen funcionar con niveles de corriente relativamente altos (hasta 1.5A) que, una vez apagan las bombas, pueden quedar residuos que las pueden dañar severamente. Para evitar eso, se añadió un diodo 1N4007 invertido y paralelo a cada bomba. De esta forma, las características intrínsecas del diodo hace que permita usarlo como un realimentador que estabiliza el drenaje de esa corriente residual.
 
-El esquemático del diseño se puede ver en la Figura 11.
+El esquemático del diseño se puede ver en la Figura 12.
 
 <div align="center">
   <img src="IMagenes/BOMBA.png" width="40%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 11: Esquemático módulo de riego.</i>
+  <i>Figura 12: Esquemático módulo de riego.</i>
 </div>
 
 ### 3.2.2. Implementación.
 
-El diseño del sistema se pensó en base a distintos módulos, segmentando las funciones en diferentes unidades independientes para optimizar la robustez y la seguridad de la misma. Esta decisión se tomo en base a la necesidad de aislar el circuito de control principal. Dado que los sensores de humedad de suelo y nivel de agua operan en proximidad constante con líquidos, se optó por un módulo independiente que protege la placa principal ante posibles filtraciones y ambientes de alta humedad, facilitando además una ubicación más estratégica de los sensores dentro del invernadero, esto se observa en la Figura 12.
+El diseño del sistema se pensó en base a distintos módulos, segmentando las funciones en diferentes unidades independientes para optimizar la robustez y la seguridad de la misma. Esta decisión se tomo en base a la necesidad de aislar el circuito de control principal. Dado que los sensores de humedad de suelo y nivel de agua operan en proximidad constante con líquidos, se optó por un módulo independiente que protege la placa principal ante posibles filtraciones y ambientes de alta humedad, facilitando además una ubicación más estratégica de los sensores dentro del invernadero, esto se observa en la Figura 13.
 
 <div align="center">
   <img src="IMagenes/frente%20sensores%20analog.jpeg" width="42%" />
   <img src="IMagenes/sensores%20trasera.jpeg" width="38%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 12: Placa de sensores. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
+  <i>Figura 13: Placa de sensores. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
-Siguiendo esta lógica por funcionalidad y seguridad, se implementó un módulo específico para la iluminación LED ver Figura 13. Debido a la corriente requerida por estos componentes y la necesidad de un circuitos dedicado, esta modularización permitió simplificando el diseño general y mejorando la integridad de las señales. De manera similar, se desarrolló un tercer bloque destinado a los actuadores de mayor consumo ya que estos deben ser alimentados con un fuente de 12 V, como las bombas de riego y el cooler, como se observa en la Figura 14. Al situar las bombas en un módulo cerca de los líquidos, se mejora la distribución y el impacto del los ruidos propios de los motores sobre el microcontrolador.
+Siguiendo esta lógica por funcionalidad y seguridad, se implementó un módulo específico para la iluminación LED ver Figura 14. Debido a la corriente requerida por estos componentes y la necesidad de un circuitos dedicado, esta modularización permitió simplificando el diseño general y mejorando la integridad de las señales. De manera similar, se desarrolló un tercer bloque destinado a los actuadores de mayor consumo ya que estos deben ser alimentados con un fuente de 12 V, como las bombas de riego y el cooler, como se observa en la Figura 15. Al situar las bombas en un módulo cerca de los líquidos, se mejora la distribución y el impacto del los ruidos propios de los motores sobre el microcontrolador.
 
 <div align="center">
   <img src="IMagenes/leds%20frente.jpeg" width="42%" />
   <img src="IMagenes/trasera%20leds.jpeg" width="39%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 13: Placa de LEDs. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
+  <i>Figura 14: Placa de LEDs. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
 <div align="center">
@@ -367,33 +370,47 @@ Siguiendo esta lógica por funcionalidad y seguridad, se implementó un módulo 
   <img src="IMagenes/bomba%20cooler%20trasero.jpeg" width="38.25%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 14: Placa de bomba y cooler. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
+  <i>Figura 15: Placa de bomba y cooler. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
-Finalmente, la placa general de hardware se centraliza en una placa base de distribución que funciona como el nodo del sistema, esta se observa en las Figura 15. Sobre esta se monta la placa Nucleo (STM32F103RB), encargándose de la gestión de energía (5 V y 3,3 V) necesaria para los modulos y sensores, ademas de distribuir la tension de la fuente independiente necesaria de 12 V. Asimismo, esta placa actúa como un bus de las señales de control de los pines GPIO, PWM e I2C hacia los distintos módulos implementados, garantizando una distribución de la información y la energía de forma robusta, organizada y eficiente.
+Finalmente, la placa general de hardware se centraliza en una placa base de distribución que funciona como el nodo del sistema, esta se observa en las Figura 16. Sobre esta se monta la placa Nucleo (STM32F103RB), encargándose de la gestión de energía (5 V y 3,3 V) necesaria para los modulos y sensores, ademas de distribuir la tension de la fuente independiente necesaria de 12 V. Asimismo, esta placa actúa como un bus de las señales de control de los pines GPIO, PWM e I2C hacia los distintos módulos implementados, garantizando una distribución de la información y la energía de forma robusta, organizada y eficiente.
 
 <div align="center">
   <img src="IMagenes/placa%20general%20frente.jpeg" width="39.5%" />
   <img src="IMagenes/placa%20general%20trasera.jpeg" width="42%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 15: Placa general. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
+  <i>Figura 16: Placa general. Izquierda: Vista frontal. Derecha: Vista posterior.</i>
 </div>
 
 
 ## 3.3. Funcionamiento de software.
 
-El sistema consta de un programa principal denominado app.c. Este se encarga de ejecutar las tareas una por una en menos de 1ms, cuyo diagrama de funcionamiento se ilustra en la Figura 16.
-A continuación se describen detalladamente las tareas que se desarrollaron para la implementación de este trabajo. Las mismas siguen un esquema *bare-metal* con *super-loop* y un *tick* de sistema de 1 ms.
+El sistema consta de un programa principal denominado app.c. Este se encarga de ejecutar las tareas una por una en menos de 1ms, cuyo diagrama de funcionamiento se ilustra en la Figura 17.
+ 
+En dicha figura se presenta el diagrama de arquitectura del software basado en tareas. La lógica del sistema se estructuró dividiendo las funciones en módulos independientes, cuya interacción se diferencia mediante dos flujos principales: el flujo de ejecución (indicado en rojo) y el flujo de información (indicado en verde).
+
+El flujo de ejecución define la secuencia temporal y el orden en que se  procesan los bloques del sistema. Comienza tras el `INICIO` del programa, dándole prioridad a la tarea de almacenamiento (`Task_system_memory`). Luego, el flujo avanza hacia el bloque de sensores (`Task_sensor_analog` y `Task_sensor_digital`), pasa por el módulo de comunicación (`Task_sensor_BLE`) y finalmente activa el núcleo de control del sistema y los actuadores correspondientes.
+
+Por otro lado, el flujo de información representa el intercambio de datos y parámetros entre las distintas tareas de manera asíncrona:
+
+* Almacenamiento: Provee las `Preferencias de usuario` guardadas en memoria hacia las tareas de control del Sistema.
+* Sensores: Envían de forma constante la `Información del estado del entorno` (lecturas físicas) hacia el mismo núcleo.
+* Comunicación: Procesa los datos de la app y, si se reciben `Nuevas Preferencias`, las envía de regreso al módulo de Almacenamiento para actualizar la memoria no volátil.
+* Sistema y Actuadores: Las tareas del bloque Sistema procesan los datos del entorno frente a las preferencias deseadas y emiten `Órdenes` específicas hacia las tareas del bloque de Actuadores (`Task_actuator_LED`, `Task_actuator_cooler` y `Task_actuator_bomba`) para corregir las variables físicas.
+
+<br>
 
 <div align="center">
   <img src="https://raw.githubusercontent.com/ecamueira/tdse-tf_2-3/entrega-final/IMagenes/diagrama_tareas.jpeg" width="90%" />
   <br>
   <a name="fig:diagrama_tareas"></a>
-  <i>Figura 16: Diagrama de tareas.</i>
+  <i>Figura 17: Diagrama de tareas.</i>
 </div>
 
+<br>
 
+A continuación se describen detalladamente las tareas que se desarrollaron para la implementación de este trabajo. Las mismas siguen un esquema *bare-metal* con *super-loop* y un *tick* de sistema de 1 ms.
 
 ### 3.3.1. Task Sensor Analog.
 
@@ -480,7 +497,7 @@ En esta sección se presentan las mediciones hechas sobre las pruebas de hardwar
 
 ## 4.1. Pruebas funcionales de hardware y de software.
 
-Se realizaron distintas mediciones y pruebas sobre el funcionamiento tanto de hardware (tabla 6) como de software (tabla 7), los cuales se detalla el ensayos utilizo ademas de los resultados obtenidos del mismo.
+Se realizaron distintas mediciones y pruebas sobre el funcionamiento tanto de hardware, en la tabla 6, como de software, en la tabla 7, los cuales se detalla el ensayos utilizo ademas de los resultados obtenidos del mismo.
 
 ### Registro de ensayos y pruebas de funcionamiento del sistema.
 
@@ -554,7 +571,7 @@ Se realizaron distintas mediciones con el objetivo de analizar los peores tiempo
 </div>
 <p align="center"><em>Tabla 8: Comparativa de tiempos de ejecución (WCET).</em></p>
 
-Los resultados reflejan una alta eficiencia, con un tiempo total de apenas 230 $\mu$s en el peor de los casos. Esta velocidad asegura que el sistema procesa la información de manera casi instantánea, dejando al microcontrolador libre la mayor parte del tiempo. La pequeña diferencia entre el estado base y el activo confirma que el envío de datos y el control de periféricos no sobrecargan al procesador, permitiendo un funcionamiento fluido.
+Los resultados reflejan una alta eficiencia, con un tiempo total de apenas 230 μs en el peor de los casos. Esta velocidad asegura que el sistema procesa la información de manera casi instantánea, dejando al microcontrolador libre la mayor parte del tiempo. La pequeña diferencia entre el estado base y el activo confirma que el envío de datos y el control de periféricos no sobrecargan al procesador, permitiendo un funcionamiento fluido.
 
 ## 4.4. Cálculo del Factor de Uso (U) de la CPU
 
@@ -595,20 +612,20 @@ El pico de $208 \ \text{mA}$ observado en el modo máximo se debe a la actuació
 
 ## 4.6. Reporte de uso
 
-Se analizó la eficiencia del programa tras la compilación. En las Figuras 17 y 18 se presentan la salida de la consola y el build analyzer, respectivamente.
+Se analizó la eficiencia del programa tras la compilación. En las Figuras 18 y 19 se presentan la salida de la consola y el build analyzer, respectivamente.
 
 <div align="center">
   <img src="IMagenes/consola.png" width="80%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 17: Resumen de compilación.</i>
+  <i>Figura 18: Resumen de compilación.</i>
 </div>
 
 <div align="center">
   <img src="IMagenes/buildan.png" width="80%" />
   <br>
   <a name="fig:esquema"></a>
-  <i>Figura 18: Ocupación de memoria Flash y RAM..</i>
+  <i>Figura 19: Ocupación de memoria Flash y RAM..</i>
 </div>
 
 
